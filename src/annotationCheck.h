@@ -4,36 +4,36 @@
 #include <iostream>
 #include <filesystem>
 #include <string>
-#include <opencv2/opencv.hpp> 
+#include <opencv2/opencv.hpp>
 
 class OutputData {
-    private:
-        int frame_count;
-        int object_count;
-        int video_fps = 4; // Frames per second for output video
+private:
+    int frame_count;
+    int object_count;
+    int video_fps = 4; // Frames per second for output video
+
+public:
+    OutputData(int frame_count, int object_count) : frame_count(frame_count), object_count(object_count) {}
+    OutputData() : frame_count(0), object_count(0) {} // Default constructor initializes to 0
     
-    public:
-        OutputData(int frame_count, int object_count) : frame_count(frame_count), object_count(object_count) {}
-        OutputData() : frame_count(0), object_count(0) {} // Default constructor initializes to 0
-        
-        // Getters
-        int getFrameCount() const { return frame_count; }
-        int getObjectCount() const { return object_count; }
-        int getVideoFps() const { return video_fps; }
+    // Getters
+    int getFrameCount() const { return frame_count; }
+    int getObjectCount() const { return object_count; }
+    int getVideoFps() const { return video_fps; }
+
+    // Incrementers
+    void incrementFrameCount() { frame_count++; }
+    void incrementObjectCount() { object_count++; }
+
+    // Setters
+    void setVideoFps(int fps) { video_fps = fps; }
     
-        // Incrementers
-        void incrementFrameCount() { frame_count++; }
-        void incrementObjectCount() { object_count++; }
-    
-        // Setters
-        void setVideoFps(int fps) { video_fps = fps; }
-        
-        // Reset function
-        void reset() {
-            frame_count = 0;
-            object_count = 0;
-        }
-    };
+    // Reset function
+    void reset() {
+        frame_count = 0;
+        object_count = 0;
+    }
+};
 
 class FinishedAnnotation {
 private:

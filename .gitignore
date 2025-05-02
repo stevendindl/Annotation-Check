@@ -1,2 +1,17 @@
+# Ignore annotation files
 *.png
 *.json
+
+# Ignore everything in these directories
+build/* 
+bin/*
+
+# Ignore executable & object files
+*.o
+*.obj
+*.so
+*.dll
+*.exe
+
+# Ignore .env files
+*.env

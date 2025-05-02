@@ -1,0 +1,3 @@
+/home/steven-dindl/Documents/Annotation-Check/build/CMakeFiles/run.dir
+/home/steven-dindl/Documents/Annotation-Check/build/CMakeFiles/edit_cache.dir
+/home/steven-dindl/Documents/Annotation-Check/build/CMakeFiles/rebuild_cache.dir

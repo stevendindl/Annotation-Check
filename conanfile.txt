@@ -1,0 +1,7 @@
+[requires]
+opencv/4.5.5
+nlohmann_json/3.11.2
+
+[generators]
+CMakeDeps
+CMakeToolchain

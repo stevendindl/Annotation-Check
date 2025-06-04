@@ -1,5 +1,5 @@
 # Annotation Check Project
-## Video compiling for labelme
+##### Video compiling for labelme
 ---
 ## Project Setup (Conan and Cmake)
 ### External Libraries Management (Conan)
@@ -74,17 +74,65 @@ Annotation-Check/
 ---
 ## Misc dev info 
 ###### (This section will be clean up)
-## Output log
+### Output log
 * Box disappears (or exits) frame
 * Drastic change of box between frame
 
-## Vibration level
+### Vibration level
 * Possible attribute to track, some sort variance between frames, might have to look into this from a stats approach
 
-## Label me
+### Label me
 ##### X,y cords of shapes (rectange)
 * 0,0 is in top left corner
 * points are top_left (x1,y1) & bottom_right (x2,y2)
 * calulate others by top_right (x2, y1) & bottom_left (x1, y2)
+
+### Handling json
+It can feel needed to throw a for loop in the mix to iterate through and grab points,
+but thats really not needed at all.
+##### Take a look at this code
+```c++
+for (const auto points : j["shapes"][0]["points"]) {
+  std::cout << points << std::endl;
+  // print type
+  std::cout << typeid(points).name() << std::endl;
+  std::string str = points.dump();
+  std::cout << "String points ! " << str << " !" << std::endl;
+}
+
+std::cout << " --- or shapes [0] points ---- " << std::endl;
+std::cout << j["shapes"][0]["points"] << std::endl;
+
+std::cout << " --- or or shapes [0] points [0] ---- " << std::endl;
+std::cout << j["shapes"][0]["points"][0] << std::endl;
+
+std::cout << " --- or or or shapes [0] points [i][j]---- " << std::endl;
+std::cout << j["shapes"][0]["points"][0][0] << std::endl;
+std::cout << j["shapes"][0]["points"][0][1] << std::endl;
+std::cout << j["shapes"][0]["points"][1][0] << std::endl;
+std::cout << j["shapes"][0]["points"][1][1] << std::endl;
+```
+##### and cross reference with this output
+```bash
+[1249.6288076473243,894.4240691659]
+N8nlohmann16json_abi_v3_11_210basic_jsonISt3mapSt6vectorNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEblmdSaNS0_14adl_serializerES3_IhSaIhEEEE
+String points ! [1249.6288076473243,894.4240691659] !
+[1365.5468429513153,1078.7297357355635]
+N8nlohmann16json_abi_v3_11_210basic_jsonISt3mapSt6vectorNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEblmdSaNS0_14adl_serializerES3_IhSaIhEEEE
+String points ! [1365.5468429513153,1078.7297357355635] !
+ --- or shapes [0] points ---- 
+[[1249.6288076473243,894.4240691659],[1365.5468429513153,1078.7297357355635]]
+ --- or or shapes [0] points [0] ---- 
+[1249.6288076473243,894.4240691659]
+ --- or or or shapes [0] points [i][j]---- 
+1249.6288076473243
+894.4240691659
+1365.5468429513153
+1078.7297357355635
+```
+- For each rect object there is two points, which are pairs, you can even 
+ensure that you are only grabbing points from rectangles with an edge case. 
+If we wanted todo other objects, we would likely opt for seperate edge cases 
+regardless.
 
 ---

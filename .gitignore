@@ -1,5 +1,6 @@
 # Ignore annotation files
 *.png
+*.jpg
 *.json
 
 # Ignore everything in these directories
@@ -15,3 +16,5 @@ bin/*
 
 # Ignore .env files
 *.env
+
+/Ano-Frm

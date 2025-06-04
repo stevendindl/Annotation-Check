@@ -7,12 +7,14 @@ import cv2
 # import threading
 # mutex = threading.Lock()
 
+# file_name = ""
+
 # Home dir path
 home = Path.home()
 
 # User output dir setup
 documents_path = home / "Documents"
-mkdir_path = documents_path / "Annotation-Videos"
+mkdir_path = documents_path / "Annotation-Videos" / "test-vid"
 mkdir_path.mkdir(parents=True, exist_ok=True)
 
 # Create log file if it doesn't exist
@@ -22,7 +24,7 @@ print(f"Log file path: {log_file_path}")
 log = open(log_file_path, "w")
 
 # PNG / JSON folder setup
-annotation_folder = "/home/steven-dindl/Documents/Integer-Scripting/Annotation-Tools/example_files"
+annotation_folder = "/home/steven-dindl/Documents/Annotation-Check/Ano-Frm/wrst-vid-12:59-B"
 
 print(f"Annotation folder path: {annotation_folder}")
 
@@ -47,7 +49,7 @@ def get_dict_of_files(folder_path):
     prev_labels = []
     for file in files:
         # Check if the file is a PNG image
-        if file.suffix == ".png":
+        if file.suffix == ".png" or file.suffix == ".jpg":
             # Open the image file
             image = Image.open(annotation_folder / file)
             draw = ImageDraw.Draw(image)
@@ -79,11 +81,11 @@ def get_dict_of_files(folder_path):
 
                         print(f"Drawing rectangle: ({left}, {top}) to ({right}, {bottom})")
 
-                        draw.rectangle([(left, top), (right, bottom)], outline="green", width=3)
+                        draw.rectangle([(left, top), (right, bottom)], outline="#39FF14", width=1)
 
 
                 # Save the modified image
-                draw.text((10, 10), file.name, fill="green", font=font)
+                draw.text((10, 10), file.name, fill="#39FF14", font=font)
                 output_path = mkdir_path / file.name
                 image.save(output_path)
                 print(f"Image saved to {output_path}")
@@ -105,7 +107,10 @@ def get_dict_of_files(folder_path):
                 image.save(output_path)
     log.write(f"Total number of objects in folder: {object_count}\n")
     print(f"Length of file_dict: {len(file_dict)}")
-    log.write(f"Average number of objects per image: {object_count / len(file_dict)}\n") 
+
+    if object_count > 0 and len(file_dict) > 0:
+        log.write(f"Average number of objects per image: {object_count / len(file_dict)}\n") 
+
     log.write(f"Total number of images in folder: {len(file_dict)}\n")
     return file_dict
 
